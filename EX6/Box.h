@@ -1,70 +1,59 @@
-#pragma once
+ï»¿#pragma once
 
 class Pack {
 public:
-	//d‚³ Œ`‚ÉŠÖŒW‚È‚­d‚³‚Í‚ ‚é‚Ì‚ÅB
+	//ï¿½dï¿½ï¿½ ï¿½`ï¿½ÉŠÖŒWï¿½È‚ï¿½ï¿½dï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½Ì‚ÅB
 	double weight = 0;
 	void InputWeight()
 	{
-		std::cout << "d‚³‚ğ“ü—Í(kg)";
+		std::cout << "ï¿½dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(kg)";
 		std::cin >> weight;
 	}
 
-	double GetWeight()
-	{
-		return weight;
-	}
+	//ï¿½`ï¿½Å•Ï‚ï¿½ï¿½
+	virtual double GetPackSize() = 0; //ï¿½Tï¿½Cï¿½Yï¿½Ìæ“¾ï¿½Aï¿½hï¿½ï¿½ï¿½ï¿½Åï¿½ï¿½ï¿½ï¿½ï¿½Kï¿½{ï¿½É‚ï¿½ï¿½ï¿½Aï¿½`ï¿½É‘ï¿½Hï¿½Äï¿½ï¿½ï¿½
 
-	void Input()
-	{
-		InputSize();
-		InputWeight();
-	}
-
-	//Œ`‚Å•Ï‚í‚é
-	virtual double GetPackSize() = 0; //ƒTƒCƒY‚Ìæ“¾A”h¶æ‚ÅÀ‘•‚ğ•K{‚É‚·‚éAŒ`‚É‘å˜H‚ÄÀ‘•
-
-	//Œ`‚Å•Ï‚í‚é
-	virtual void InputSize() = 0;     //ƒTƒCƒY‚Ì“ü—ÍA”h¶æ‚ÅÀ‘•‚ğ•K{‚É‚·‚éAŒ`‚É‘å˜H‚ÄÀ‘•
+	//ï¿½`ï¿½Å•Ï‚ï¿½ï¿½
+	virtual void InputSize() = 0;     //ï¿½Tï¿½Cï¿½Yï¿½Ì“ï¿½ï¿½ÍAï¿½hï¿½ï¿½ï¿½ï¿½Åï¿½ï¿½ï¿½ï¿½ï¿½Kï¿½{ï¿½É‚ï¿½ï¿½ï¿½Aï¿½`ï¿½É‘ï¿½Hï¿½Äï¿½ï¿½ï¿½
 };
 
-//‚±‚±‚ª” ‚Ì‘å‚«‚³
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‘å‚«ï¿½ï¿½
 class Box :public Pack {
-public: //éŒ¾ƒtƒFƒCƒY
-	double width;  // •
-	double height; // ‚‚³
-	double depth;  // ‰œs
+public: //ï¿½éŒ¾ï¿½tï¿½Fï¿½Cï¿½Y
+	double width;  // ï¿½ï¿½
+	double height; // ï¿½ï¿½ï¿½ï¿½
+	double depth;  // ï¿½ï¿½ï¿½s
 
-	double GetPackSize() override { //”h¶Œ³‚ÌéŒ¾‚³‚ê‚½Virtual‚ğÄ’è‹`‚·‚é
+	double GetPackSize() override { //ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ÌéŒ¾ï¿½ï¿½ï¿½ê‚½Virtualï¿½ï¿½Ä’ï¿½`ï¿½ï¿½ï¿½ï¿½
 		return width + height + depth;
 	}
 
-	Box(double w = 0, double h = 0, double d = 0)// •Ï”=0‚Í‚È‚É‚à–³‚¢‚Æ‚«‚Í—ë‚ª’†‚É“ü‚éB
+	Box(double w = 0, double h = 0, double d = 0)// ï¿½Ïï¿½=0ï¿½Í‚È‚É‚ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Í—ë‚ªï¿½ï¿½ï¿½É“ï¿½ï¿½ï¿½B
 	{
 		width = w;
 		height = h;
 		depth = d;
 	}
 
-	//class‚Ìˆ—•”•ª
-	void InputSize() override { //”h¶Œ³‚ÌéŒ¾‚³‚ê‚½Virtual‚ğÄ’è‹`‚·‚é
-		std::cout << "•‚ğ“ü—Í(cm)";
+	//classï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void InputSize() override { //ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ÌéŒ¾ï¿½ï¿½ï¿½ê‚½Virtualï¿½ï¿½Ä’ï¿½`ï¿½ï¿½ï¿½ï¿½
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(cm)";
 		std::cin >> width;
-		std::cout << "‚‚³‚ğ“ü—Í(cm)";
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(cm)";
 		std::cin >> height;
-		std::cout << "‰œs‚«‚ğ“ü—Í(cm)";
+		std::cout << "ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(cm)";
 		std::cin >> depth;
 	}
 
 };
 
-//‚±‚±‚ª‰~’Œ‚Ì‘å‚«‚³
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~ï¿½ï¿½ï¿½Ì‘å‚«ï¿½ï¿½
 class Cylinder :public Pack {
-public: //éŒ¾ƒtƒFƒCƒY
-	double radius; // ”¼Œa
-	double height; // ‚‚³
+public: //ï¿½éŒ¾ï¿½tï¿½Fï¿½Cï¿½Y
+	double radius; // ï¿½ï¿½ï¿½a
+	double height; // ï¿½ï¿½ï¿½ï¿½
 
-	double GetPackSize() override {//”h¶Œ³‚ÌéŒ¾‚³‚ê‚½Virtual‚ğÄ’è‹`‚·‚é
+	double GetPackSize() override {//ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ÌéŒ¾ï¿½ï¿½ï¿½ê‚½Virtualï¿½ï¿½Ä’ï¿½`ï¿½ï¿½ï¿½ï¿½
 		return radius * 4 + height;
 	}
 
@@ -73,11 +62,11 @@ public: //éŒ¾ƒtƒFƒCƒY
 		height = h;
 	}
 
-	//class‚Ìˆ—•”•ª
-	void InputSize() override {//”h¶Œ³‚ÌéŒ¾‚³‚ê‚½Virtual‚ğÄ’è‹`‚·‚é
-		std::cout << "”¼Œa‚ğ“ü—Í(cm)";
+	//classï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void InputSize() override {//ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ÌéŒ¾ï¿½ï¿½ï¿½ê‚½Virtualï¿½ï¿½Ä’ï¿½`ï¿½ï¿½ï¿½ï¿½
+		std::cout << "ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½ï¿½ï¿½(cm)";
 		std::cin >> radius;
-		std::cout << "‚‚³‚ğ“ü—Í(cm)";
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(cm)";
 		std::cin >> height;
 	}
 };
@@ -88,10 +77,10 @@ struct PackSet
 	double weight = 0;
 };
 
-//‚±‚±‚Å‹æ•Ê‚³‚ê‚½‘î”z‚Ì‰ïĞ‚Ìƒf[ƒ^i‘å‚«‚³‚È‚Çj‚ğó‚¯æ‚é
+//ï¿½ï¿½ï¿½ï¿½ï¿½Å‹ï¿½Ê‚ï¿½ï¿½ê‚½ï¿½ï¿½zï¿½Ì‰ï¿½Ğ‚Ìƒfï¿½[ï¿½^ï¿½iï¿½å‚«ï¿½ï¿½ï¿½È‚Çjï¿½ï¿½ó‚¯ï¿½ï¿½
 class PackSizeList {
-public: //éŒ¾ƒtƒFƒCƒY
-	PackSet* packSet; //”z—ñ‚ğó‚¯æ‚é
+public: //ï¿½éŒ¾ï¿½tï¿½Fï¿½Cï¿½Y
+	PackSet* packSet; //ï¿½zï¿½ï¿½ï¿½ó‚¯ï¿½ï¿½
 	unsigned int Length;
 
 	PackSizeList(PackSet p[], unsigned int l) {
@@ -100,19 +89,19 @@ public: //éŒ¾ƒtƒFƒCƒY
 	}
 };
 
-//‹ÆÒ‚Ì‰×•¨‚ğ•\‚·B
+//ï¿½ÆÒ‚Ì‰×•ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½B
 class Takuhai {
-public: //éŒ¾ƒtƒFƒCƒYFPackSizeList‚ÆPack‚ÌQÆ‚ğ‚Â
+public: //ï¿½éŒ¾ï¿½tï¿½Fï¿½Cï¿½Yï¿½FPackSizeListï¿½ï¿½Packï¿½ÌQï¿½Æ‚ï¿½ï¿½ï¿½ï¿½
 	Pack* pack;
-	PackSizeList* packSizeList; //‚±‚±‚É‚«‚Ä‚é
+	PackSizeList* packSizeList; //ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½Ä‚ï¿½
 
-	//‚±‚±‚Å‹æ•Ê‚³‚ê‚½‘î”z‚Ì‰ïĞ‚Ìƒf[ƒ^‚©‚ç‘å‚«‚³‚ğ‹æ•Ê‚µ‚Ä‚¢‚éB
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Å‹ï¿½Ê‚ï¿½ï¿½ê‚½ï¿½ï¿½zï¿½Ì‰ï¿½Ğ‚Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½ï¿½ï¿½Ê‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½B
 	double GetPackSize() {
 		double judge = 0;
 		double packSize = pack->GetPackSize();
 		double packWeight = pack->GetWeight();
 
-		//ƒTƒCƒY
+		//ï¿½Tï¿½Cï¿½Y
 		for (int i = 0; i < packSizeList->Length; i++) {
 			PackSet* packSet = &packSizeList->packSet[i];
 			if (packWeight <= packSizeList->packSet[i].size && packWeight)
