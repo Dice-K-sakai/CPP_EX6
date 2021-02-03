@@ -2,12 +2,23 @@
 
 class Pack {
 public:
-	//重さ 形に関係なく重さはあるので
+	//重さ 形に関係なく重さはあるので。
 	double weight = 0;
 	void InputWeight()
 	{
 		std::cout << "重さを入力(kg)";
 		std::cin >> weight;
+	}
+
+	double GetWeight() 
+	{
+		return weight;
+	}
+
+	void Input() 
+	{
+		InputSize();
+		InputWeight();
 	}
 
 	//形で変わる
@@ -28,13 +39,11 @@ public : //宣言フェイズ
 		return width + height + depth;
 	}
 
-	Box(double w=0,double h=0, double d=0 , double we = 0) // 変数=0はなにも無いときは零が中に入る。
+	Box(double w=0,double h=0, double d=0)// 変数=0はなにも無いときは零が中に入る。
 	{
 		width = w;
 		height = h;
 		depth = d;
-
-		weight = we;
 	}
 
 	//classの処理部分
@@ -45,8 +54,6 @@ public : //宣言フェイズ
 		std::cin >> height;
 		std::cout << "奥行きを入力(cm)";
 		std::cin >> depth;
-
-		Pack::InputWeight();//重さの入力
 	}
 
 };
@@ -61,11 +68,9 @@ public: //宣言フェイズ
 		return radius * 4 + height;
 	}
 
-	Cylinder(double r = 0, double h = 0, double we = 0) {
+	Cylinder(double r = 0, double h = 0){
 		radius = r;
 		height = h;
-
-		weight = we;
 	}
 
 	//classの処理部分
@@ -74,26 +79,24 @@ public: //宣言フェイズ
 		std::cin >> radius;
 		std::cout << "高さを入力(cm)";
 		std::cin >> height;
-
-		Pack::InputWeight();//重さの入力
 	}
+};
+
+struct PackSet
+{
+	double size = 0;
+	double weight = 0;
 };
 
 //ここで区別された宅配の会社のデータ（大きさなど）を受け取る
 class PackSizeList {
 public: //宣言フェイズ
-	double* size; //配列を受け取る
-	unsigned int sizeLength;
+	PackSet* packSet; //配列を受け取る
+	unsigned int Length;
 
-	double* weight;
-	unsigned int weightLength;
-
-	PackSizeList(double s[],unsigned int ls , double w[] , unsigned int lw) {
-		size = s;
-		sizeLength = ls;
-
-		weight = w;
-		weightLength = lw;
+	PackSizeList(PackSet p[],unsigned int l) {
+		packSet = p;
+		Length = l;
 	}
 };
 
@@ -103,39 +106,29 @@ public: //宣言フェイズ：PackSizeListとPackの参照を持つ
 	Pack* pack;
 	PackSizeList* packSizeList; //ここにきてる
 
-	int sizeLength = 0;
-
 	//ここで区別された宅配の会社のデータから大きさを区別している。
 	double GetPackSize() {
-		double judgeSize = 0;
+		double judge = 0;
+		double packSize = pack->GetPackSize();
+		double packWeight = pack->GetWeight();
 
 		//サイズ
-		for (int i = 0; i < packSizeList->sizeLength; i++) {
-			if (pack->GetPackSize() <= packSizeList->size[i])
+		for (int i = 0; i < packSizeList->Length; i++) {
+			PackSet* packSet = &packSizeList->packSet[i];
+			if (packWeight <= packSizeList->packSet[i].size && packWeight)
 			{
-				judgeSize = packSizeList->size[i];
-				sizeLength = i;
+				judge = packSizeList->packSet[i].size;
 				break;
 			}
 		}
 
-		return judgeSize;
+		return judge;
 	}
 
-	bool GetPackWeight() {
-		bool judgeWeight = false;
-
-		//重さが超えてなければジャッチをトゥルーにする。
-		for (int w = 0; w < packSizeList->weightLength; w++) {
-			if (pack->weight <= packSizeList->weight[sizeLength])
-			{
-				judgeWeight = true;
-				break;
-			}
-		}
-
-		return judgeWeight;
-
+	Takuhai(Pack* pk, PackSizeList* pks) {
+		pack = pk;
+		packSizeList = pks;
 	}
+
 };
 
