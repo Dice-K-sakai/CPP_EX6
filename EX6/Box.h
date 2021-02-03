@@ -2,12 +2,18 @@
 
 class Pack {
 public:
-	//重さ 形に関係なく重さはあるので
+	//重さ 形に関係なく重さはあるので。
 	double weight = 0;
 	void InputWeight()
 	{
 		std::cout << "重さを入力(kg)";
 		std::cin >> weight;
+	}
+
+	void Input() 
+	{
+		InputSize();
+		InputWeight();
 	}
 
 	//形で変わる
@@ -45,8 +51,6 @@ public : //宣言フェイズ
 		std::cin >> height;
 		std::cout << "奥行きを入力(cm)";
 		std::cin >> depth;
-
-		Pack::InputWeight();//重さの入力
 	}
 
 };
@@ -74,8 +78,6 @@ public: //宣言フェイズ
 		std::cin >> radius;
 		std::cout << "高さを入力(cm)";
 		std::cin >> height;
-
-		Pack::InputWeight();//重さの入力
 	}
 };
 

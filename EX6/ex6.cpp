@@ -45,7 +45,7 @@ int main()
 	default:
 		break;
 	}
-	pack->InputSize();
+	pack->Input();
 
 	Takuhai takuhai = Takuhai();
 	takuhai.pack = pack;
