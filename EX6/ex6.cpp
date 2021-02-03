@@ -26,10 +26,10 @@ int main()
 
 	//JPのサイズ https://www.post.japanpost.jp/send/fee/kokunai/parcel.html#01
 	double jpSize[] = { 60,80,100,120,140,160,170 };
-	double jpWeight[] = { 25 };
+	double jpWeight[] = { 25,25,25,25,25,25,25 };
 
 	//佐川急便のサイズ https://www.sagawa-exp.co.jp/send/fare/list/sagawa_faretable/attention.html
-	double sagawaSize[] = { 60,80,100,140,160,170,180,200,220,240,260 };
+	double sagawaSize[] = { 60,80,100,140,160};
 	double sagawaWeight[] = { 2,5,10,20,30 };
 
 	unsigned int i = InputUINT("形は？（0:箱型 1:円柱)", 2);
@@ -68,16 +68,15 @@ int main()
 
 	//ここで大きさを区別するclassに移動
 	double packSize = takuhai.GetPackSize();
-	bool packWeight = takuhai.GetPackWeight();
+	bool judgeWeight = takuhai.GetPackWeight();
 
-	if (packSize != 0 && packWeight)
+	if (packSize != 0 && judgeWeight)
 	{
 		cout << "宅配のサイズは" << packSize << endl;
-		cout << "宅配物の重さは" << pack->GetPackWeight() << "(kg)" << endl;
 	}
-	else if (packSize != 0 && !packWeight) 
+	else if (packSize != 0 && !judgeWeight)
 	{
-		cout << "この重さで宅配は送れません" << endl;
+		cout << "このサイズではこの重さの荷物は送れません" << endl;
 	}
 	else 
 	{

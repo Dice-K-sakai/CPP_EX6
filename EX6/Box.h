@@ -2,14 +2,19 @@
 
 class Pack {
 public:
+	//重さ 形に関係なく重さはあるので
+	double weight = 0;
+	void InputWeight()
+	{
+		std::cout << "重さを入力(kg)";
+		std::cin >> weight;
+	}
+
 	//形で変わる
 	virtual double GetPackSize() = 0; //サイズの取得、派生先で実装を必須にする、形に大路て実装
 
 	//形で変わる
 	virtual void InputSize() = 0;     //サイズの入力、派生先で実装を必須にする、形に大路て実装
-
-	//重さ
-	virtual double GetPackWeight() = 0;
 };
 
 //ここが箱の大きさ
@@ -18,18 +23,13 @@ public : //宣言フェイズ
 	double width;  // 幅
 	double height; // 高さ
 	double depth;  // 奥行
-
-	double weight; // 重さ
 	
 	double GetPackSize() override { //派生元の宣言されたVirtualを再定義する
 		return width + height + depth;
 	}
 
-	double GetPackWeight() override {//派生元の宣言されたVirtualを再定義する
-		return weight;
-	}
-
-	Box(double w=0,double h=0, double d=0 , double we = 0) {
+	Box(double w=0,double h=0, double d=0 , double we = 0) // 変数=0はなにも無いときは零が中に入る。
+	{
 		width = w;
 		height = h;
 		depth = d;
@@ -45,9 +45,8 @@ public : //宣言フェイズ
 		std::cin >> height;
 		std::cout << "奥行きを入力(cm)";
 		std::cin >> depth;
-		
-		std::cout << "重さを入力(kg)";
-		std::cin >> weight;
+
+		Pack::InputWeight();//重さの入力
 	}
 
 };
@@ -58,14 +57,8 @@ public: //宣言フェイズ
 	double radius; // 半径
 	double height; // 高さ
 
-	double weight; // 重さ
-
 	double GetPackSize() override {//派生元の宣言されたVirtualを再定義する
 		return radius * 4 + height;
-	}
-
-	double GetPackWeight() override {//派生元の宣言されたVirtualを再定義する
-		return weight;
 	}
 
 	Cylinder(double r = 0, double h = 0, double we = 0) {
@@ -82,15 +75,14 @@ public: //宣言フェイズ
 		std::cout << "高さを入力(cm)";
 		std::cin >> height;
 
-		std::cout << "重さを入力(kg)";
-		std::cin >> weight;
+		Pack::InputWeight();//重さの入力
 	}
 };
 
-//ここで区別された宅配の会社のデータ（大きさなど）を受け取る。＊１
+//ここで区別された宅配の会社のデータ（大きさなど）を受け取る
 class PackSizeList {
 public: //宣言フェイズ
-	double* size;
+	double* size; //配列を受け取る
 	unsigned int sizeLength;
 
 	double* weight;
@@ -105,11 +97,13 @@ public: //宣言フェイズ
 	}
 };
 
-
+//業者の荷物を表す。
 class Takuhai{
-public: //宣言フェイズ
+public: //宣言フェイズ：PackSizeListとPackの参照を持つ
 	Pack* pack;
-	PackSizeList* packSizeList; //ここにきてる。＊１
+	PackSizeList* packSizeList; //ここにきてる
+
+	int sizeLength = 0;
 
 	//ここで区別された宅配の会社のデータから大きさを区別している。
 	double GetPackSize() {
@@ -120,6 +114,7 @@ public: //宣言フェイズ
 			if (pack->GetPackSize() <= packSizeList->size[i])
 			{
 				judgeSize = packSizeList->size[i];
+				sizeLength = i;
 				break;
 			}
 		}
@@ -127,12 +122,12 @@ public: //宣言フェイズ
 		return judgeSize;
 	}
 
-	double GetPackWeight() {
+	bool GetPackWeight() {
 		bool judgeWeight = false;
 
-		//重さ
+		//重さが超えてなければジャッチをトゥルーにする。
 		for (int w = 0; w < packSizeList->weightLength; w++) {
-			if (pack->GetPackWeight() <= packSizeList->weight[w])
+			if (pack->weight <= packSizeList->weight[sizeLength])
 			{
 				judgeWeight = true;
 				break;
